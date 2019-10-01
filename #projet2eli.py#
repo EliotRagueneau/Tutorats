@@ -1,0 +1,165 @@
+# coding: utf8
+
+import sys
+def affichermenu(): # affiche les indications du menu
+    print ' Indiquez quel déplacement avec "zqsd" ' # enlever l'accent a deplacement
+    print " Ou 0 pour quitter "
+
+#####grille#####
+    
+def initgrille(): #initialisation de la grille 
+    grille=[] #liste vide pour une grille
+    grille.append([" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "]) #ligne0, blanche
+    grille.append([" "," "," ","*","*","*","*","*"," "," "," ",9," "," "," "]) #ligne 1, avec le 9 pour la reception
+    grille.append([" "," "," ","*"," "," "," ","*"," "," "," ","*"," "," "," "]) #ligne 2
+    
+    for i in range (2,5,2): #2 fois 2 lignes identiques
+        grille.append([" ",2,"*","*","*",2,"*","*","*",2,"*","*","*",2," "]) 
+        grille.append([" ","*"," ","*"," "," "," ","*"," "," "," ","*"," ","*"," "]) 
+       
+    grille.append([" ",2,"*","*","*",2,"*","*","*",2,"*","*","*",2," "]) #ligne 7
+    grille.append([" "," "," ","*"," "," "," ","*"," "," "," "," "," "," "," "]) #ligne 8
+    grille.append([" "," "," ","*","*",1,"*","*"," "," "," "," "," "," "," "]) # ligne 9
+    grille.append([" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "]) #ligne 10
+
+    return grille # il faut retourner la grille
+
+
+def affigrille(L1): #fonction d'affichage de la grille, correspondra a L1
+    for i in L1: # pour chaque index de la grille(L1)
+        for x in i: #pour chaque index des listes de la grille(i)
+            print x, #on affiche tous ces index, suivit par 
+        print " " # un espace pour retourner a la ligne
+
+######### Les deplacements : z, q, d, s #########
+
+def deplahaut(L1,a,b): # le deplacement en haut, avec z
+    if(L1[a-1][b]!=" "): 
+        L1[a][b]="*"         
+        a=a-1
+        b=b
+        L1[a][b]=1 
+    else:
+        pass
+    return L1,a,b
+
+def depladroite(L1,a,b): # le deplacement a droite, avec d
+    if(L1[a][b+1]!=" "):
+        L1[a][b]="*"
+        a=a
+        b=b+1
+        L1[a][b]=1
+    else:
+        pass
+    return L1,a,b
+
+def deplabas(L1,a,b): # le deplacement en bas, avec s
+    if(L1[a+1][b]!=" "):
+        L1[a][b]="*"
+        a=a+1
+        b=b
+        L1[a][b]=1
+    else:
+        pass
+    return L1,a,b
+
+def deplagauche(L1,a,b): # le deplacement a gauche, avec q
+    if (L1[a][b-1]!=" "):
+        L1[a][b]="*"
+        a=a
+        b=b-1
+        L1[a][b]=1
+    else:
+        pass
+    return L1,a,b
+
+# maitre du chateau
+def maitrechateau(L1):
+    if L1[5][9]==1:
+        L1[5][9]=2
+        L1[9][5]=1
+    return L1
+
+########### SI ON PLACE LE MAITRE A LA CASE 5,9 #########
+def clestrousseau(L1):
+    if L1[5][8]==1:
+        print " !!!!!! ATTENTION !!!!!! BRUIT DE CLES !!!!!! "
+    if L1[5][10]==1:
+        print " !!!!!! ATTENTION !!!!!! BRUIT DE CLES !!!!!! "
+    return L1
+
+########### SI ON PLACE LE SAVANT FOU A LA CASE 3,1 ########
+def riresardonique(L1):
+    if L1[3][2]==1:
+        print " !!!!!! HAHAHAHAHAHAHAHAHA !!!!!"
+    if L1[4][1]==1:
+        print " !!!!!! HAHAHAHAHAHAHAHAHA !!!!!"
+    return L1
+
+######### SI ON PLACE UN BIBENDUM CHAMALLOW ########
+def odeurchamallow(L1):
+    ###### A LA CASE 5,5 ######
+    if L1[5][4]==1:
+        print " !!!!!! ODEUR DE CHAMALLOW FRAISE !!!!!!"
+    if L1[5][6]==1:
+        print " !!!!!! ODEUR DE CHAMALLOW FRAISE !!!!!!"
+    ###### A LA CASE 7,5 #######
+    if L1[7][4]==1:
+        print " !!!!!! ODEUR DE CHAMALLOW FRAISE !!!!!!"
+    if L1[7][6]==1:
+        print " !!!!!! ODEUR DE CHAMALLOW FRAISE !!!!!!"
+    ###### A LA CASE 3,13 #######
+    if L1[3][12]==1
+        print " !!!!!! ODEUR DE CHAMALLOW FRAISE !!!!!!"
+    if L1[4][13]==1:
+        print " !!!!!! ODEUR DE CHAMALLOW FRAISE !!!!!!"
+    return L1
+
+#######MAIN######    
+
+grille=initgrille()
+affigrille(grille)
+a=9
+b=5
+while(True):
+    affichermenu()
+    rep=raw_input()
+
+    if rep=="z":
+        grille,a,b=deplahaut(grille,a,b)
+        affigrille(grille)
+        clestrousseau(grille)
+        riresardonique(grille)
+        odeurchamallow(grille)
+        #maitrechateau(grille)
+
+    elif rep=="q":
+        grille,a,b=deplagauche(grille,a,b)
+        affigrille(grille)
+        clestrousseau(grille)
+        riresardonique(grille)
+        odeurchamallow(grille)
+        #maitrechateau(grille)
+
+    elif rep=="s":
+        grille,a,b=deplabas(grille,a,b)
+        affigrille(grille)
+        clestrousseau(grille) 
+        riresardonique(grille)
+        odeurchamallow(grille)
+        #maitrechateau(grille)
+
+    elif rep=="d":
+        grille,a,b=depladroite(grille,a,b)
+        affigrille(grille) 
+        clestrousseau(grille)
+        riresardonique(grille)
+        odeurchamallow(grille)
+        #maitrechateau(grille)
+
+    elif rep=="0":
+        sys.exit(0)
+        affigrille(grille)
+
+    maitrechateau(grille)
+

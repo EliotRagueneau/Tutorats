@@ -1,0 +1,92 @@
+# coding: utf-8
+
+import sys
+def affichermenu():
+    print(' Indiquez quel déplacement avec "zqsd" ')
+    print(" Ou 0 pour quitter ")
+
+def init ():
+    L1=[]
+    taille=eval(input('Indiquez la taille de la grille: '))
+    for i in range(taille):
+        L1.append(list(range(taille)))
+        for x in range(taille):
+            L1[i][x]=0
+    a=eval(input("Indiquez position initiale x : "))
+    b=eval(input("y: "))
+    L1[a][b]=1
+    return L1,a,b
+    
+    
+
+
+
+def affigrille(L1):
+    for i in range(len(L1)):
+        print((L1[i]))
+
+def deplahaut(L1,a,b):
+    L1[a][b]=0
+    a=a-1
+    b=b
+    L1[a][b]=1
+    return L1,a,b
+def depladroite(L1,a,b):
+    L1[a][b]=0
+    a=a
+    b=b+1
+    L1[a][b]=1
+    return L1,a,b
+
+def deplabas(L1,a,b):
+    L1[a][b]=0
+    a=a+1
+    b=b
+    L1[a][b]=1
+    return L1,a,b
+
+def deplagauche(L1,a,b):
+    L1[a][b]=0
+    a=a
+    b=b-1
+    L1[a][b]=1
+    return L1,a,b
+
+    
+    
+grille,a,b=init()
+affigrille(grille)
+        
+            
+#app=Tk()
+#app.title("Tutorat AMBB")
+#app.geometry("1000x1000+400+400")
+#cadre = Frame(app, width=10, height=10, borderwidth=1)
+#cadre.pack()
+
+#app.mainloop()
+
+while(True):
+    affichermenu()
+    rep=eval(input())
+
+    if rep=="z":
+        grille,a,b=deplahaut(grille,a,b)
+        affigrille(grille)
+    elif rep=="q":
+        grille,a,b=deplagauche(grille,a,b)
+        affigrille(grille)
+
+    elif rep=="s":
+        grille,a,b=deplabas(grille,a,b)
+        affigrille(grille)
+
+    elif rep=="d":
+        grille,a,b=depladroite(grille,a,b)
+        affigrille(grille)
+        
+    elif rep=="0":
+        sys.exit(0)
+        affigrille(grille)
+       
+
